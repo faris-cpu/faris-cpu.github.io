@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Truly Asia - Discover Malaysia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#F59E0B',
+                            teal: '#0D9488',
+                            navy: '#0F172A',
+                            emerald: '#059669',
+                            sunset: '#E11D48',
+                            sand: '#FEF3C7',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .hero-gradient {
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.85) 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #0D9488;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300 border-b border-slate-700/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-teal to-brand-gold flex items-center justify-center text-white shadow-lg group-hover:scale-105 transition-transform">
+                        <i class="fa-solid me-0.5 fa-compass text-xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-extrabold text-white tracking-wide">MALAYSIA</span>
+                        <span class="text-[10px] tracking-widest text-brand-gold uppercase font-semibold">Truly Asia</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#destinations" class="text-slate-200 hover:text-brand-gold font-medium transition-colors text-sm">Destinations</a>
+                    <a href="#itinerary" class="text-slate-200 hover:text-brand-gold font-medium transition-colors text-sm">Trip Planner</a>
+                    <a href="#culture" class="text-slate-200 hover:text-brand-gold font-medium transition-colors text-sm">Culture & Food</a>
+                    <a href="#tips" class="text-slate-200 hover:text-brand-gold font-medium transition-colors text-sm">Travel Tips</a>
+                    <button onclick="togglePlannerModal()" class="bg-gradient-to-r from-brand-teal to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-white font-semibold px-5 py-2.5 rounded-full text-sm shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Plan Trip
+                    </button>
+                </nav>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" aria-label="Toggle menu" class="text-slate-200 hover:text-white p-2 rounded-lg focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl" id="menuIcon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-slate-900/95 border-b border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#destinations" class="mobile-link block text-slate-200 hover:text-brand-gold font-medium py-2">Destinations</a>
+            <a href="#itinerary" class="mobile-link block text-slate-200 hover:text-brand-gold font-medium py-2">Trip Planner</a>
+            <a href="#culture" class="mobile-link block text-slate-200 hover:text-brand-gold font-medium py-2">Culture & Food</a>
+            <a href="#tips" class="mobile-link block text-slate-200 hover:text-brand-gold font-medium py-2">Travel Tips</a>
+            <button onclick="togglePlannerModal(); toggleMobileMenu();" class="w-full bg-brand-teal text-white font-semibold py-3 rounded-xl mt-2 text-center">
+                <i class="fa-solid fa-paper-plane mr-2"></i> Plan Your Trip
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-slate-900">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=2000&q=80" 
+                 alt="Kuala Lumpur Skyline" 
+                 class="w-full h-full object-cover object-center scale-105 animate-pulse-subtle"
+                 onerror="this.src='https://placehold.co/1920x1080/0f172a/ffffff?text=Discover+Malaysia'">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center text-white pt-12 pb-24">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-gold text-xs sm:text-sm font-semibold tracking-wider uppercase mb-6">
+                ✨ Welcome to Southeast Asia's Gem
+            </span>
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6">
+                Experience the Diversity of <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold via-amber-200 to-teal-300">Malaysia</span>
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto font-light leading-relaxed mb-10">
+                From ancient rainforests millions of years old to iconic modern skyscrapers, pristine island beaches, and world-renowned street food.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#destinations" class="w-full sm:w-auto px-8 py-4 rounded-full bg-brand-gold hover:bg-amber-500 text-slate-950 font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+                    Explore Destinations <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+                <a href="#itinerary" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md text-white font-semibold border border-white/30 transition-all duration-300">
+                    <i class="fa-solid fa-sliders mr-2"></i> Interactive Planner
+                </a>
+            </div>
+
+            <!-- Quick Stats Bar -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-4xl mx-auto pt-8 border-t border-white/10">
+                <div class="p-3">
+                    <p class="text-3xl font-extrabold text-brand-gold">130M+</p>
+                    <p class="text-xs text-slate-300 uppercase tracking-wider mt-1">Year Old Rainforests</p>
+                </div>
+                <div class="p-3">
+                    <p class="text-3xl font-extrabold text-brand-teal">878+</p>
+                    <p class="text-xs text-slate-300 uppercase tracking-wider mt-1">Tropical Islands</p>
+                </div>
+                <div class="p-3">
+                    <p class="text-3xl font-extrabold text-brand-gold">3</p>
+                    <p class="text-xs text-slate-300 uppercase tracking-wider mt-1">UNESCO World Heritage Sites</p>
+                </div>
+                <div class="p-3">
+                    <p class="text-3xl font-extrabold text-emerald-400">32M+</p>
+                    <p class="text-xs text-slate-300 uppercase tracking-wider mt-1">Warm Local Smiles</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-10 animate-bounce hidden sm:block">
+            <a href="#destinations" aria-label="Scroll down" class="text-white/70 hover:text-white">
+                <i class="fa-solid fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Top Destinations Section -->
+    <section id="destinations" class="py-24 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-teal mb-2">Must-Visit Locations</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900">Explore Malaysia’s Top Regions</p>
+                <div class="w-16 h-1 bg-brand-teal mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Destinations Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Destination 1: Kuala Lumpur -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col group border border-slate-200">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&w=800&q=80" 
+                             alt="Kuala Lumpur Twins Towers" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/600x400/0f172a/ffffff?text=Kuala+Lumpur'">
+                        <span class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full">
+                            Modern Metropolis
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Kuala Lumpur</h3>
+                                <span class="text-amber-500 text-sm font-semibold"><i class="fa-solid fa-star"></i> 4.9</span>
+                            </div>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                Marvel at the Petronas Twin Towers, wander through bustling street markets in Chinatown, and explore the ancient Batu Caves.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">City Life</span>
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">Shopping</span>
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">Culture</span>
+                            </div>
+                            <button onclick="openModal('Kuala Lumpur', 'Home to iconic architecture, high-end shopping malls, historic temples, and legendary hawker markets like Jalan Alor. Highlights include the Petronas Twin Towers, Batu Caves, and KL Forest Eco Park.')" class="w-full py-2.5 border border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white font-semibold rounded-xl text-sm transition-colors duration-300">
+                                Discover Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Destination 2: Penang -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col group border border-slate-200">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=800&q=80" 
+                             alt="George Town Street Art" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/600x400/0f172a/ffffff?text=Penang'">
+                        <span class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full">
+                            UNESCO Heritage
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Penang</h3>
+                                <span class="text-amber-500 text-sm font-semibold"><i class="fa-solid fa-star"></i> 4.9</span>
+                            </div>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                Known as Asia's food capital. Stroll through George Town's historic streets filled with vibrant street art, colonial heritage, and food stalls.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">Street Food</span>
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">Art & History</span>
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">Heritage</span>
+                            </div>
+                            <button onclick="openModal('Penang', 'Recognized by UNESCO for its preserved heritage buildings and interactive murals. Penang offers legendary dishes like Char Kway Teow and Penang Laksa, alongside Penang Hill and Kek Lok Si Temple.')" class="w-full py-2.5 border border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white font-semibold rounded-xl text-sm transition-colors duration-300">
+                                Discover Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Destination 3: Langkawi -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col group border border-slate-200">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" 
+                             alt="Langkawi Beach" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/600x400/0f172a/ffffff?text=Langkawi'">
+                        <span class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full">
+                            Tropical Paradise
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Langkawi</h3>
+                                <span class="text-amber-500 text-sm font-semibold"><i class="fa-solid fa-star"></i> 4.8</span>
+                            </div>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                An archipelago of 99 islands offering turquoise waters, duty-free shopping, mangrove tours, and the famous Langkawi Sky Bridge.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">Beaches</span>
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">Relaxation</span>
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">Nature</span>
+                            </div>
+                            <button onclick="openModal('Langkawi', 'Malaysia\'s premier island destination featuring luxury beach resorts, Kilim Karst Geoforest Park, Cable Car rides, and crystal-clear waters perfect for island hopping.')" class="w-full py-2.5 border border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white font-semibold rounded-xl text-sm transition-colors duration-300">
+                                Discover Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Destination 4: Malaysian Borneo -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col group border border-slate-200">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80" 
+                             alt="Borneo Mount Kinabalu" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/600x400/0f172a/ffffff?text=Borneo'">
+                        <span class="absolute top-4 left-4 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full">
+                            Eco Adventure
+                        </span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <h3 class="text-xl font-bold text-slate-900">Sabah & Sarawak</h3>
+                                <span class="text-amber-500 text-sm font-semibold"><i class="fa-solid fa-star"></i> 5.0</span>
+                            </div>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                                Experience ancient rainforests, encounter wild Orangutans, dive world-class Sipadan reef, and climb majestic Mount Kinabalu.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">Wildlife</span>
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">Trekking</span>
+                                <span class="text-[11px] bg-slate-100 font-medium text-slate-600 px-2.5 py-1 rounded-md">Diving</span>
+                            </div>
+                            <button onclick="openModal('Malaysian Borneo (Sabah & Sarawak)', 'Home to Mt Kinabalu, Danum Valley, Sepilok Orangutan Sanctuary, and Mulu Caves. Ideal for nature lovers seeking off-the-beaten-path expeditions.')" class="w-full py-2.5 border border-brand-teal text-brand-teal hover:bg-brand-teal hover:text-white font-semibold rounded-xl text-sm transition-colors duration-300">
+                                Discover Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Itinerary Section -->
+    <section id="itinerary" class="py-24 bg-slate-900 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-gold mb-2">Personalized Recommendation</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold">Interactive Trip Planner</p>
+                <p class="text-slate-400 mt-2 text-sm">Filter and build your ideal Malaysian adventure based on your preferred travel style.</p>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700/80 shadow-xl max-w-4xl mx-auto mb-12 backdrop-blur-md">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Travel Style</label>
+                        <select id="styleFilter" onchange="filterItineraries()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-teal text-white">
+                            <option value="all">All Travel Styles</option>
+                            <option value="food">Culinary & Culture</option>
+                            <option value="nature">Nature & Wildlife</option>
+                            <option value="beach">Relaxation & Beaches</option>
+                            <option value="adventure">Action & Adventure</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold uppercase text-slate-300 mb-2">Duration</label>
+                        <select id="durationFilter" onchange="filterItineraries()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-brand-teal text-white">
+                            <option value="all">Any Duration</option>
+                            <option value="short">Short Trip (3-5 Days)</option>
+                            <option value="medium">Standard (6-9 Days)</option>
+                            <option value="long">Extended (10+ Days)</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button onclick="resetFilters()" class="w-full bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 rounded-xl text-sm transition-colors">
+                            <i class="fa-solid fa-rotate-left mr-2"></i> Reset Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Itinerary Cards Grid -->
+            <div id="itineraryContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Dynamic cards rendered by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture & Food Showcase -->
+    <section id="culture" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-teal mb-2 block">Melting Pot of Asia</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-6">Rich Heritage & Culinary Delights</h2>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        Malaysia's identity is shaped by a harmonious blend of Malay, Chinese, Indian, and indigenous ethnic cultures. This diversity is most celebrated in its legendary cuisine—from rich coconut curries to sizzling street food skewer treats.
+                    </p>
+
+                    <!-- Accordion Features -->
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                            <h3 class="font-bold text-slate-900 flex items-center">
+                                <i class="fa-solid fa-bowl-food text-brand-gold mr-3 text-lg"></i> Signature Dish: Nasi Lemak
+                            </h3>
+                            <p class="text-slate-600 text-sm mt-2">Fragrant rice cooked in coconut milk & pandan leaves, served with spicy sambal, crispy anchovies, roasted peanuts, and boiled egg.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                            <h3 class="font-bold text-slate-900 flex items-center">
+                                <i class="fa-solid fa-mug-hot text-brand-teal mr-3 text-lg"></i> Teh Tarik Culture
+                            </h3>
+                            <p class="text-slate-600 text-sm mt-2">Malaysia's national pulled milk tea drink, aerated through high-pouring mastery to create a creamy, frothy head.</p>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                            <h3 class="font-bold text-slate-900 flex items-center">
+                                <i class="fa-solid fa-masks-theater text-emerald-600 mr-3 text-lg"></i> Festivals & Traditions
+                            </h3>
+                            <p class="text-slate-600 text-sm mt-2">Experience open houses during Hari Raya, Chinese New Year, Deepavali, and Borneo's Harvest Festivals (Gawai & Kaamatan).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Culture Gallery Grid -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-4">
+                        <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=600&q=80" 
+                             alt="Malaysian Street Food" 
+                             class="rounded-2xl shadow-lg object-cover h-64 w-full"
+                             onerror="this.src='https://placehold.co/600x400/0d9488/ffffff?text=Malaysian+Food'">
+                        <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f07?auto=format&fit=crop&w=600&q=80" 
+                             alt="Batu Caves Temple" 
+                             class="rounded-2xl shadow-lg object-cover h-48 w-full"
+                             onerror="this.src='https://placehold.co/600x400/f59e0b/ffffff?text=Culture'">
+                    </div>
+                    <div class="space-y-4 pt-8">
+                        <img src="https://images.unsplash.com/photo-1541410965313-d53b3c16ef17?auto=format&fit=crop&w=600&q=80" 
+                             alt="Heritage Architecture" 
+                             class="rounded-2xl shadow-lg object-cover h-48 w-full"
+                             onerror="this.src='https://placehold.co/600x400/0f172a/ffffff?text=Heritage'">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" 
+                             alt="Borneo Nature" 
+                             class="rounded-2xl shadow-lg object-cover h-64 w-full"
+                             onerror="this.src='https://placehold.co/600x400/059669/ffffff?text=Nature'">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Travel Tips Accordion & Info -->
+    <section id="tips" class="py-24 bg-slate-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-brand-teal mb-2">Essential Traveler Info</h2>
+                <p class="text-3xl sm:text-4xl font-extrabold text-slate-900">Key Tips Before You Travel</p>
+                <div class="w-16 h-1 bg-brand-teal mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Accordion Items -->
+            <div class="space-y-4" id="tipsAccordion">
+                <!-- Tip 1 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('tip1')" class="w-full p-6 text-left font-bold text-slate-900 flex justify-between items-center focus:outline-none">
+                        <span class="flex items-center text-lg"><i class="fa-solid fa-passport text-brand-teal mr-4"></i> Visa Requirements & Entry</span>
+                        <i id="icon-tip1" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="tip1" class="hidden px-6 pb-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-4">
+                        Most nationalities receive a visa-free stay ranging from 30 to 90 days upon arrival. Ensure your passport has at least 6 months validity remaining from your date of entry. Complete the digital arrival card (MDAC) prior to arrival.
+                    </div>
+                </div>
+
+                <!-- Tip 2 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('tip2')" class="w-full p-6 text-left font-bold text-slate-900 flex justify-between items-center focus:outline-none">
+                        <span class="flex items-center text-lg"><i class="fa-solid fa-sun text-brand-gold mr-4"></i> Climate & Best Time to Visit</span>
+                        <i id="icon-tip2" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="tip2" class="hidden px-6 pb-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-4">
+                        Malaysia experiences tropical weather year-round (25°C to 32°C). The West Coast (Penang, Langkawi) is best visited between November and April, while the East Coast (Perhentian Islands, Redang) is ideal between April and October.
+                    </div>
+                </div>
+
+                <!-- Tip 3 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('tip3')" class="w-full p-6 text-left font-bold text-slate-900 flex justify-between items-center focus:outline-none">
+                        <span class="flex items-center text-lg"><i class="fa-solid fa-plane-arrival text-brand-emerald mr-4"></i> Local Transport & Getting Around</span>
+                        <i id="icon-tip3" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="tip3" class="hidden px-6 pb-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-4">
+                        E-hailing apps like Grab are widely used, reliable, and affordable. Major urban centers like Kuala Lumpur offer efficient light rail (LRT/MRT) and monorail networks. Domestic flights operate frequently across Peninsular and East Malaysia.
+                    </div>
+                </div>
+
+                <!-- Tip 4 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <button onclick="toggleAccordion('tip4')" class="w-full p-6 text-left font-bold text-slate-900 flex justify-between items-center focus:outline-none">
+                        <span class="flex items-center text-lg"><i class="fa-solid fa-coins text-brand-sunset mr-4"></i> Currency & Payments</span>
+                        <i id="icon-tip4" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="tip4" class="hidden px-6 pb-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100 pt-4">
+                        The official currency is the Malaysian Ringgit (MYR). Credit cards are accepted in shopping malls and hotels, but keeping cash on hand is recommended for local hawker centers, night markets, and rural areas.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destination Detail Modal -->
+    <div id="detailModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative border border-slate-100 animate-fade-in">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-800 transition-colors">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+            <div class="w-12 h-12 bg-brand-teal/10 rounded-2xl flex items-center justify-center text-brand-teal mb-4">
+                <i class="fa-solid fa-location-dot text-2xl"></i>
+            </div>
+            <h3 id="modalTitle" class="text-2xl font-bold text-slate-900 mb-3">Modal Title</h3>
+            <p id="modalDescription" class="text-slate-600 text-sm leading-relaxed mb-6">Modal text placeholder...</p>
+            <button onclick="closeModal()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-3 rounded-xl transition-colors">
+                Close Preview
+            </button>
+        </div>
+    </div>
+
+    <!-- Custom Interactive Planner Modal -->
+    <div id="plannerModal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative">
+            <button onclick="togglePlannerModal()" class="absolute top-6 right-6 text-slate-400 hover:text-slate-800">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+            <h3 class="text-2xl font-bold text-slate-900 mb-2">Build Your Trip</h3>
+            <p class="text-slate-500 text-xs mb-6">Submit your preferences to simulate an itinerary request.</p>
+
+            <form onsubmit="handlePlannerSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Your Name</label>
+                    <input type="text" required placeholder="e.g. Sarah Lee" class="w-full border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:border-brand-teal">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Target Travel Month</label>
+                    <select class="w-full border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:border-brand-teal">
+                        <option>January - March</option>
+                        <option>April - June</option>
+                        <option>July - September</option>
+                        <option>October - December</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Primary Interest</label>
+                    <select class="w-full border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:border-brand-teal">
+                        <option>Islands & Snorkeling</option>
+                        <option>Rainforest & Eco Wildlife</option>
+                        <option>City, Shopping & Food</option>
+                        <option>Cultural Heritage & Temples</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-brand-teal hover:bg-teal-700 text-white font-bold py-3.5 rounded-xl shadow-lg transition-all mt-4">
+                    Generate Itinerary Idea
+                </button>
+            </form>
+            <div id="plannerSuccess" class="hidden mt-4 p-4 bg-emerald-50 text-emerald-800 rounded-xl text-xs font-medium text-center">
+                🎉 Request received! Your customized Malaysia itinerary outline is ready below.
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4 justify-center sm:justify-start">
+                        <div class="w-8 h-8 rounded-lg bg-brand-gold flex items-center justify-center text-slate-950 font-bold">
+                            <i class="fa-solid fa-compass"></i>
+                        </div>
+                        <span class="text-lg font-extrabold text-white">Malaysia Tourism</span>
+                    </div>
+                    <p class="text-xs leading-relaxed text-slate-400">Discover Asia's most captivating destination. Experience harmony, culture, nature, and unmatched hospitality.</p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#destinations" class="hover:text-white transition-colors">Top Destinations</a></li>
+                        <li><a href="#itinerary" class="hover:text-white transition-colors">Trip Planner</a></li>
+                        <li><a href="#culture" class="hover:text-white transition-colors">Food & Culture</a></li>
+                        <li><a href="#tips" class="hover:text-white transition-colors">Travel Tips</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Popular Highlights</h4>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#destinations" class="hover:text-white transition-colors">Petronas Twin Towers</a></li>
+                        <li><a href="#destinations" class="hover:text-white transition-colors">George Town Heritage</a></li>
+                        <li><a href="#destinations" class="hover:text-white transition-colors">Langkawi Sky Bridge</a></li>
+                        <li><a href="#destinations" class="hover:text-white transition-colors">Mount Kinabalu</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold text-sm mb-4">Connect & Share</h4>
+                    <div class="flex justify-center sm:justify-start space-x-4 mb-4">
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-brand-teal hover:text-white transition-colors">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-brand-teal hover:text-white transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-300 hover:bg-brand-teal hover:text-white transition-colors">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                    <p class="text-xs text-slate-500">Ready for hosting on GitHub Pages.</p>
+                </div>
+            </div>
+            <div class="border-t border-slate-900 pt-8 text-center text-xs text-slate-500">
+                <p>&copy; <span id="year"></span> Discover Malaysia Tourism Portal. Built for travelers worldwide.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive JavaScript Logic -->
+    <script>
+        // Dynamic Year Update
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.getElementById('menuIcon');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+        // Close mobile menu on clicking a mobile link
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMobileMenu();
+                }
+            });
+        });
+
+        // Sample Itineraries Data
+        const itineraries = [
+            {
+                id: 1,
+                title: "Ultimate Cultural & Foodie Experience",
+                style: "food",
+                duration: "short",
+                durationLabel: "4 Days / 3 Nights",
+                location: "Kuala Lumpur & Penang",
+                icon: "fa-utensils",
+                description: "Sample world-famous street food in Penang, tour ancient markets, and explore iconic landmarks in KL."
+            },
+            {
+                id: 2,
+                title: "Tropical Island & Geoforest Escape",
+                style: "beach",
+                duration: "short",
+                durationLabel: "5 Days / 4 Nights",
+                location: "Langkawi Archipelago",
+                icon: "fa-umbrella-beach",
+                description: "Relax on pristine white beaches, explore mangrove ecosystems, and ride the breathtaking SkyCab."
+            },
+            {
+                id: 3,
+                title: "Borneo Rainforest & Wildlife Expedition",
+                style: "nature",
+                duration: "medium",
+                durationLabel: "7 Days / 6 Nights",
+                location: "Sabah (Sandakan & Kota Kinabalu)",
+                icon: "fa-tree",
+                description: "Encounter Orangutans at Sepilok, cruise the Kinabatangan River, and discover rich rainforest biodiversity."
+            },
+            {
+                id: 4,
+                title: "Grand West Coast Discovery",
+                style: "adventure",
+                duration: "medium",
+                durationLabel: "8 Days / 7 Nights",
+                location: "KL, Melaka & Penang",
+                icon: "fa-compass",
+                description: "Uncover Malaysia's rich colonial heritage, vibrant cityscapes, and diverse culinary hotspots."
+            },
+            {
+                id: 5,
+                title: "Complete Malaysia Panorama",
+                style: "nature",
+                duration: "long",
+                durationLabel: "12 Days / 11 Nights",
+                location: "Peninsular & Malaysian Borneo",
+                icon: "fa-plane",
+                description: "The ultimate cross-country expedition combining modern urban marvels, island beaches, and Borneo jungle adventures."
+            },
+            {
+                id: 6,
+                title: "Island Hopping & Diving Safari",
+                style: "beach",
+                duration: "medium",
+                durationLabel: "6 Days / 5 Nights",
+                location: "Sipadan & Perhentian Islands",
+                icon: "fa-water",
+                description: "Dive world-famous coral reefs, swim with sea turtles, and relax in crystal clear turquoise bays."
+            }
+        ];
+
+        // Render Itineraries dynamically
+        function renderItineraries(items) {
+            const container = document.getElementById('itineraryContainer');
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-slate-400">
+                        <i class="fa-solid fa-circle-info text-3xl mb-3"></i>
+                        <p>No itineraries match your current filters. Try resetting your search choices.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="bg-slate-800 rounded-2xl p-6 border border-slate-700/80 shadow-lg flex flex-col justify-between hover:border-brand-teal transition-all duration-300">
+                    <div>
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="w-10 h-10 rounded-xl bg-slate-700 flex items-center justify-center text-brand-gold text-lg">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </span>
+                            <span class="text-xs bg-slate-700 text-brand-gold font-semibold px-3 py-1 rounded-full">
+                                ${item.durationLabel}
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">${item.title}</h3>
+                        <p class="text-xs text-brand-teal font-semibold mb-3">
+                            <i class="fa-solid fa-location-dot mr-1"></i> ${item.location}
+                        </p>
+                        <p class="text-slate-300 text-xs leading-relaxed mb-6">
+                            ${item.description}
+                        </p>
+                    </div>
+                    <button onclick="openModal('${item.title}', '${item.description} This curated route is fully customizable for independent travelers or guided tours.')" class="w-full bg-slate-700 hover:bg-brand-teal text-white text-xs font-semibold py-2.5 rounded-xl transition-colors">
+                        View Itinerary Summary
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Filter Logic
+        function filterItineraries() {
+            const style = document.getElementById('styleFilter').value;
+            const duration = document.getElementById('durationFilter').value;
+
+            const filtered = itineraries.filter(item => {
+                const matchStyle = (style === 'all' || item.style === style);
+                const matchDuration = (duration === 'all' || item.duration === duration);
+                return matchStyle && matchDuration;
+            });
+
+            renderItineraries(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('styleFilter').value = 'all';
+            document.getElementById('durationFilter').value = 'all';
+            renderItineraries(itineraries);
+        }
+
+        // Accordion Toggle Logic
+        function toggleAccordion(id) {
+            const target = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            
+            if (target.classList.contains('hidden')) {
+                target.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                target.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Modal Functions
+        function openModal(title, description) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('detailModal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('detailModal').classList.add('hidden');
+        }
+
+        function togglePlannerModal() {
+            const modal = document.getElementById('plannerModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function handlePlannerSubmit(e) {
+            e.preventDefault();
+            const successBox = document.getElementById('plannerSuccess');
+            successBox.classList.remove('hidden');
+            setTimeout(() => {
+                successBox.classList.add('hidden');
+                togglePlannerModal();
+            }, 2500);
+        }
+
+        // Initial render on load
+        window.addEventListener('DOMContentLoaded', () => {
+            renderItineraries(itineraries);
+        });
+    </script>
+</body>
+</html>
